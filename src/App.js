@@ -1,9 +1,12 @@
 import './App.css';
+import React from 'react';
+import Front from './components/Home/FrontPage.jsx';
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <>
+    <Front/>
+    </>
   );
 }
 
