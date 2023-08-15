@@ -31,6 +31,7 @@
     border: #72DB73;
     border-radius: 24px;
     margin: 10px 0px;
+    cursor: pointer;
 }
 
 #title{
@@ -53,6 +54,10 @@
 .green{
     color: #72DB73;
     cursor: pointer;
+}
+
+.error{
+    color: red;
 }
 
 @media screen and (max-width: 768px){
