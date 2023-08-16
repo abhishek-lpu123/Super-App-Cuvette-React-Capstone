@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './Form.css'
+import './Form.css';
 
 function Form() {
 
@@ -22,14 +22,16 @@ function Form() {
     }
   }
 
+  
+
   const handleSubmit = () => {
     const NameRegex = /^[A-Za-z ]{3,}$/;
-    const UserNameRegex = /^[A-Za-z0-9]{6,10}$/;
+    const UserNameRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]{6,10}$/;
     const EmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const NumberRegex = /^[0-9]{10}$/;
     const ValidationErrors = {}
     if (!NameRegex.test(data.name)) {
-      ValidationErrors.name = "Name should not contain only alphabets and minimum of 3 letters"
+      ValidationErrors.name = "Name should only contain alphabets and minimum of 3 letters"
     }
     if (!UserNameRegex.test(data.username)) {
       ValidationErrors.username = "UserName should be a combination of alphabets and digits between 6 to 10 letters"
@@ -37,7 +39,7 @@ function Form() {
     if (!EmailRegex.test(data.email)) {
       ValidationErrors.email = "Email format Invalid"
     }
-    if (!NumberRegex.test(data.number)){
+    if (!NumberRegex.test(data.number)) {
       ValidationErrors.number = "Number should be of 10 digits"
     }
     if (!document.getElementById('checkbox').checked) {
@@ -45,10 +47,17 @@ function Form() {
     }
 
     setError(ValidationErrors);
-    if(Object.keys(ValidationErrors).length === 0 ){
+    if (Object.keys(ValidationErrors).length === 0) {
       localStorage.setItem('formData', JSON.stringify(data));
+      alert("Form Submitted Sucessfully");
+      setdata({
+        name: "",
+        username: "",
+        email: "",
+        number: ""
+      });
     }
-    
+
   }
 
   return (
@@ -64,7 +73,7 @@ function Form() {
       <input class='data' type='text' placeholder='Number' name='number' value={data.number} onChange={handleChange} maxLength={10} />
       {error && <div className="error">{error.number}</div>}
       <div id='checkboxx'><input type='checkbox' id='checkbox'></input>
-      <label for='checkbox'>Share my Registration Data with Superapp</label></div>
+        <label for='checkbox'>Share my Registration Data with Superapp</label></div>
       {error && <div className="error">{error.checker}</div>}
       <button id='btn' onClick={handleSubmit}>SIGN UP</button>
       <p>By clicking on Sign up, you agree to Superapp <span class='green'>Terms and Conditions of Use</span>.</p>
