@@ -1,0 +1,13 @@
+.info{
+    position: relative;
+    height: 30vh;
+    width: 30vw;
+    background-color: #5746EA;
+    border-radius: 10px;
+}
+
+.profile_img{
+    position: absolute;
+    height: 25vh;
+    padding: 2.5vh
+}
