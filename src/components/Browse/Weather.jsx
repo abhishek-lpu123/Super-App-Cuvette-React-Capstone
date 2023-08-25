@@ -15,7 +15,6 @@ function Weather() {
       try {
         const result = await fetch("http://api.weatherapi.com/v1/current.json?key=93ae3766614848499db101510232308&q=kolkata&aqi=no");
         const data = await result.json();
-        console.log(data);
         setWeather(data);
       } catch (error) {
         console.log("Error fetching weather data:", error);
@@ -39,7 +38,6 @@ function Weather() {
       const formattedDate = `${month}-${day}-${year}`;
       const formattedTime = `${hours % 12 || 12}:${minutes}`;
       const formattedDateTime = `${formattedDate} \u00A0 ${formattedTime} ${hours >= 12 ? 'PM' : 'AM'}`;
-
       setFormattedDateTime(formattedDateTime);
     };
 

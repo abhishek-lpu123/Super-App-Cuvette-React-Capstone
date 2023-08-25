@@ -2,6 +2,7 @@ import React from 'react';
 import Info from './Info';
 import Weather from './Weather';
 import Notes from './Notes';
+import News from './News';
 import './Browse.css'
 function Browse() {
   return (
@@ -11,10 +12,8 @@ function Browse() {
           <Info />
           <Weather />
         </div>
-
-        <div className='horizontal'>
-          <Notes />
-        </div>
+        <div><Notes /></div>
+        <div><News /></div>
       </div>
     </>
   )

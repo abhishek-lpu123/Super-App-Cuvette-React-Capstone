@@ -20,7 +20,7 @@ function Notes() {
 
   return (
     <div className='textarea'>
-      <p className='disabledText' disabled><b>All Notes</b><br /><br />This is how I am going to learn MERN Stack in next 3 months.</p>
+      <p className='disabledText' disabled><b style={{fontSize:"28px"}}>All Notes</b><br /><br />This is how I am going to learn MERN Stack in next 3 months.</p>
       <textarea className='text' value={Text} onChange={UpdateText}></textarea>
     </div>
   )
