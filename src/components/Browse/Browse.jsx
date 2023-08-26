@@ -4,6 +4,7 @@ import Weather from './Weather';
 import Notes from './Notes';
 import News from './News';
 import './Browse.css'
+import Timer from './Timer';
 function Browse() {
   return (
     <>
@@ -11,7 +12,9 @@ function Browse() {
         <div className='vertical'>
           <Info />
           <Weather />
+          <Timer/>
         </div>
+        
         <div><Notes /></div>
         <div><News /></div>
       </div>

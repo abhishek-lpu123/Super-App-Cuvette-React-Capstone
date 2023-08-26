@@ -1,8 +1,7 @@
-
 .NewsText{
     background-color: white;
     width: calc(30vw - 20px);
-    height: 28vh;
+    height: 25vh;
     padding: 10px;
     padding-top: 20px;
     font-family: 'DM Sans', sans-serif;
@@ -33,4 +32,29 @@
 .ReadMore a{
     text-decoration: none;
     font-weight: 600;
+}
+#nextBtn2 {
+    background-color: #11B800;
+    font-family: 'DM Sans', sans-serif;
+    padding: 5px 20px;
+    border: #11B800;
+    border-radius: 12px;
+    color: #fff;
+    letter-spacing: 1.5px;
+    font-size: 1rem;
+    position: relative;
+    top: 5px;
+    margin-left: 66%;
+}
+
+#nextBtn2:hover {
+    transform: translateY(1px);
+    cursor: pointer;
+}
+
+.nextNews{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
 }

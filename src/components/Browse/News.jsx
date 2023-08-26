@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import './News.css'
+import { useNavigate } from 'react-router-dom'
 
 function News() {
 
+    const redirectTo = useNavigate();
+
     const [news, setNews] = useState('')
+    const [articleIndex, setArticleIndex] = useState(0);
     useEffect(() => {
         const fetchNews = async () => {
             try {
@@ -17,21 +21,30 @@ function News() {
         }
         fetchNews();
     }, [])
-    let randomArticleIndex = Math.floor(Math.random() * 10)
-    console.log(randomArticleIndex)
-    
+
+    const nextNews = () => {
+        const newIndex = (articleIndex + 1) % news.articles.length;
+        setArticleIndex(newIndex);
+    }
+
+    const handleNextPageClick = () => {
+        redirectTo('/movies')
+    }
+
     return (
         <div>
             {news ?
                 <div className='News'>
-                    <div><img className='NewsImg' src={news.articles[randomArticleIndex].urlToImage} alt="News Article" />
+                    <div><img className='NewsImg' src={news.articles[articleIndex].urlToImage} alt="News Article" />
                         <div className='NewsTitle'>
-                            <h2 className='Title'>{news.articles[randomArticleIndex].title}</h2><br/>
-                            <p className='DateTime'>{news.articles[randomArticleIndex].publishedAt}</p></div>
+                            <h2 className='Title'>{news.articles[articleIndex].title}</h2><br />
+                            <p className='DateTime'>{news.articles[articleIndex].publishedAt}</p></div>
                     </div>
-                    <p className='NewsText'>{news.articles[randomArticleIndex].description} <span className='ReadMore'><a href ={news.articles[randomArticleIndex].url} target='_blank'>Click here to read more...</a></span></p>
+                    <p className='NewsText'>{news.articles[articleIndex].description} <span className='ReadMore'><a href={news.articles[articleIndex].url} target='_blank'>Click here to read more...</a></span>
+                        <h4 className='nextNews' onClick={nextNews}>Next News →</h4></p>
                 </div> : <></>
             }
+            <button id="nextBtn2" onClick={handleNextPageClick}><b>Next Page</b></button>
         </div>
     )
 }
