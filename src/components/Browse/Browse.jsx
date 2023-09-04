@@ -14,7 +14,6 @@ function Browse() {
           <Weather />
           <Timer/>
         </div>
-        
         <div><Notes /></div>
         <div><News /></div>
       </div>

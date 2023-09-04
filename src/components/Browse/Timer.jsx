@@ -72,7 +72,7 @@ function Timer() {
             <div className='Timer'>
                 <div className='Countdown'>
                     <CountdownCircleTimer
-                    key={playing ? "playing" : "paused"}
+                        key={timerCompleted ? "playing" : "paused"}
                         isPlaying={playing}
                         duration={seconds + minutes * 60 + hours * 60 * 60}
                         colors={timerCompleted ? ["white"] : ["#FF6A6A"]}
@@ -81,7 +81,7 @@ function Timer() {
                             setTimerCompleted(true);
                         }}
                     >
-                        {({ remainingTime }) => <span style={{ fontSize: "20px"}}> {timerCompleted ? "Over!" : toHoursAndMinutes(remainingTime)}</span>}
+                        {({ remainingTime }) => <span style={{ fontSize: "20px" }}> {timerCompleted ? "Over!" : toHoursAndMinutes(remainingTime)}</span>}
                     </CountdownCircleTimer>
                 </div>
                 <div className='Hours'>
@@ -107,7 +107,7 @@ function Timer() {
             </div>
             <button className='start' onClick={() => {
                 if (timerCompleted) {
-                    setTimerCompleted(false); // Reset the timer completion status
+                    setTimerCompleted(false);
                     setPlaying(false);
                     setHours(0);
                     setMinutes(0);

@@ -7,7 +7,7 @@ function News() {
     const redirectTo = useNavigate();
 
     const [news, setNews] = useState('')
-    const [articleIndex, setArticleIndex] = useState(0);
+    const [articleIndex, setArticleIndex] = useState(1);
     useEffect(() => {
         const fetchNews = async () => {
             try {
