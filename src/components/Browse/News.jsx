@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function News() {
   const redirectTo = useNavigate();
   const [news, setNews] = useState('');
-  const [articleIndex, setArticleIndex] = useState(0); // Initialize with 0 instead of 1
+  const [articleIndex, setArticleIndex] = useState(0);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -22,7 +22,6 @@ function News() {
   }, []);
 
   const nextNews = () => {
-    // Check if news and news.articles are defined
     if (news && news.articles) {
       const newIndex = (articleIndex + 1) % news.articles.length;
       setArticleIndex(newIndex);
@@ -35,7 +34,7 @@ function News() {
 
   return (
     <div>
-      {news && news.articles && news.articles.length > 0 && (
+      {news && news.articles && news.articles.length > 0 ? (
         <div className='News'>
           <div>
             <img className='NewsImg' src={news.articles[articleIndex].urlToImage} alt="News Article" />
@@ -48,6 +47,8 @@ function News() {
             <h4 className='nextNews' onClick={nextNews}>Next News →</h4>
           </p>
         </div>
+      ) : (
+        <p className='newsError'>Sorry! Access to fetch News from API has been blocked due to CORS policy restrictions.</p>
       )}
       <button id="nextBtn2" onClick={handleNextPageClick}><b>Next Page</b></button>
     </div>

@@ -58,3 +58,13 @@
     right: 10px;
     cursor: pointer;
 }
+
+.newsError{
+    color: red;
+    font-size: 2.5rem;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    height: 88vh;
+    width: 30vw;
+    line-height: 1.5;
+}
