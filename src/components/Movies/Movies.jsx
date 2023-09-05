@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import './Movies.css'
-import ProfileImg from '../../assests/char-img.png'
-import { useNavigate } from 'react-router-dom'
+import './Movies.css';
+import ProfileImg from '../../assests/char-img.png';
+import { useNavigate } from 'react-router-dom';
 
 function Movies() {
-  const [moviesByGenre, setMoviesByGenre] = useState({}); // Use an object to store movies by genre
+  const [moviesByGenre, setMoviesByGenre] = useState({});
   const storedGenre = JSON.parse(localStorage.getItem('selectedGenres')) || [];
   const redirectTo = useNavigate();
 
@@ -12,26 +12,56 @@ function Movies() {
     const fetchMoviesByGenre = async () => {
       const moviesData = {};
 
-      for (const genre of storedGenre) {
-        const url = `https://api.themoviedb.org/3/search/multi?query=${genre}&language=en-US&year=2023`;
+      const getGenreIdByName = async (genreName) => {
+        const url = `https://api.themoviedb.org/3/genre/movie/list?language=en-US`;
 
         try {
           const response = await fetch(url, {
             method: 'GET',
             headers: {
               accept: 'application/json',
-              Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMWM4OGFhMjM0MDRlMWMzODI3Y2RmZTNmZDI3NjRhMiIsInN1YiI6IjY0ZWU0OGU1Y2FhNTA4MDEyYjA1MzlmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0gm5P_jLnDSjQKsJDk7SSFxF46uHk77jE4Ldd_kF6Ng'
+              Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMWM4OGFhMjM0MDRlMWMzODI3Y2RmZTNmZDI3NjRhMiIsInN1YiI6IjY0ZWU0OGU1Y2FhNTA4MDEyYjA1MzlmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0gm5P_jLnDSjQKsJDk7SSFxF46uHk77jE4Ldd_kF6Ng', // Replace with your actual API key
             },
           });
 
           if (response.ok) {
             const data = await response.json();
-            moviesData[genre] = data.results.slice(0, 4);
+            const genre = data.genres.find((genre) => genre.name === genreName);
+            return genre ? genre.id : null;
           } else {
-            console.error(`Failed to fetch movies for genre ${genre}`);
+            console.error(`Failed to fetch genre ID for ${genreName}`);
+            return null;
           }
         } catch (error) {
           console.error(error);
+          return null;
+        }
+      };
+
+      for (const genre of storedGenre) {
+        const genreId = await getGenreIdByName(genre);
+
+        if (genreId !== null) {
+          const url = `https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&language=en-US&year=2023`;
+
+          try {
+            const response = await fetch(url, {
+              method: 'GET',
+              headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMWM4OGFhMjM0MDRlMWMzODI3Y2RmZTNmZDI3NjRhMiIsInN1YiI6IjY0ZWU0OGU1Y2FhNTA4MDEyYjA1MzlmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0gm5P_jLnDSjQKsJDk7SSFxF46uHk77jE4Ldd_kF6Ng', // Replace with your actual API key
+              },
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              moviesData[genre] = data.results.slice(0, 4);
+            } else {
+              console.error(`Failed to fetch movies for genre ${genre}`);
+            }
+          } catch (error) {
+            console.error(error);
+          }
         }
       }
 
@@ -44,8 +74,8 @@ function Movies() {
   }, [storedGenre]);
 
   const handleNextPageClick = () => {
-    redirectTo('/category')
-}
+    redirectTo('/category');
+  };
 
   return (
     <div>
@@ -57,7 +87,8 @@ function Movies() {
           <h3 className='genreTitle'>{genre}</h3>
           <div className="movie-posters">
             {moviesByGenre[genre].map((movie) => (
-              <img className='genre_img'
+              <img
+                className='genre_img'
                 key={movie.id}
                 src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
                 alt={movie.title}
@@ -66,7 +97,7 @@ function Movies() {
           </div>
         </div>
       ))}
-      <button id='nextBtn3' onClick={handleNextPageClick}>GoTo Home Page</button>
+      <button id='nextBtn3' onClick={handleNextPageClick}>Go To Home Page</button>
     </div>
   );
 }
