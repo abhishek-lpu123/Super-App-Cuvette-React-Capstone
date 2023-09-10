@@ -92,7 +92,7 @@ function Category() {
     },
     {
       id:9,
-      name: "Fiction",
+      name: "Science Fiction",
       color: "#6CD061",
       image: Fiction
     }
